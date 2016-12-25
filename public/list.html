@@ -1,7 +1,7 @@
 <div class = "row">
   <div class="col-md-6">
     <h2>
-      Contacts
+      <legend>Members</legend>
     </h2>
   </div>
   <div class="col-md-3">
@@ -13,13 +13,47 @@
   </div>
 </div>
 <div class="container">
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Membership Valid Till</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr ng-repeat="contact in contacts | orderBy:'lastName'" style="cursor:pointer">
+      <td>
+        <a ng-href="#/contact/{{contact._id}}">{{ contact.firstname }} {{ contact.lastname }}</a>
+      </td>
+
+      <td>
+        {{ contact.email }}
+      </td>
+      <td>
+        {{ contact.phone }}
+      </td>
+
+      <td>
+        {{ contact.memexpiry }}
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+
+  <!--
   <table class="table table-hover">
     <tbody>
       <tr ng-repeat="contact in contacts | orderBy:'lastName'" style="cursor:pointer">
         <td>
-          <a ng-href="#/contact/{{contact._id}}">{{ contact.firstName }} {{ contact.lastName }}</a>
+          <a ng-href="#/contact/{{contact._id}}">{{ contact.firstname }} {{ contact.lastname }}</a>
         </td>
       </tr>
     </tbody>
   </table>
+  -->
 </div>

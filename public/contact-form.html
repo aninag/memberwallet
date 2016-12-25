@@ -1,41 +1,297 @@
-<div class="row" ng-hide="contact._id">
-  <div class="col-md-6">
-      <h2>Create new contact</h2>
-  </div>
-</div>
 <div class="container">
-  <div>
-    <p>
-      <label>First Name (required)</label> 
-      <input id="name" class="form-control" type="text" ng-model="contact.firstName" required> 
-    </p>
-    <p>
-      <label>Last Name (required)</label> 
-      <input id="name" class="form-control" type="text" ng-model="contact.lastName" required> 
-    </p>
-    <p>
-      <label>Email (required)</label> 
-      <input id="name" class="form-control" type="text" ng-model="contact.email" required> 
-    </p>
-    <p>
-      <label>Phone (Mobile)</label> 
-      <input id="name" class="form-control" type="text" ng-model="contact.phone.mobile"> 
-    </p>
-    <p>
-      <label>Phone (Work)</label> 
-      <input id="name" class="form-control" type="text" ng-model="contact.phone.work"> 
-    </p>
-    <p>
-      <label>Address</label> 
-      <input id="name" class="form-control" type="text" ng-model="contact.address"> 
-    </p>
-    <p>
-      <label>Twitter Handle</label> 
-      <input id="name" class="form-control" type="text" ng-model="contact.twitter"> 
-    </p>
-    <p>
-      <button style="margin-top:20px" class="btn btn-default" ng-click="saveContact(contact)">Save</button>
-      <button style="margin-top:20px" class="btn btn-default" ng-click="back()">Back</button>
-    </p>
-  </div>
-</div>
+ 
+			<!-- Form Name -->
+		<legend>Member Information </legend>
+
+	<ng-form class="form-horizontal" name="memberform" novalidate>
+
+
+		<!-- First Name-->
+		<div class="form-group">
+				<label class="col-md-2 control-label">First Name</label>
+				<div class="col-md-6 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input required name="first_name" placeholder="First Name" class="form-control editField"  ng_model= "contact.firstname" type="text" ng-readonly="editMode">
+				</div>
+			</div>
+				</div>
+
+		<!-- Last Name-->
+		<div class="form-group">
+				<label class="col-md-2 control-label" >Last Name</label>
+				<div class="col-md-6 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input required name="last_name" placeholder="Last Name" class="form-control editField"  ng_model= "contact.lastname" type="text" ng-readonly="editMode">
+					</div>
+				</div>
+			</div>
+
+		<!-- Email-->
+		<div class="form-group">
+							<label class="col-md-2 control-label">E-Mail</label>
+							<div class="col-md-6 inputGroupContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+									<input required name="email" placeholder="E-Mail" class="form-control editField"  ng_model= "contact.email" type="email" ng-readonly="editMode">
+								</div>
+							</div>
+						</div>
+
+		<!-- Secondary Email-->
+		<div class="form-group">
+							<label class="col-md-2 control-label">Other E-Mail</label>
+							<div class="col-md-6 inputGroupContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+									<input name="secemail" placeholder="optional" class="form-control editField"  ng_model= "contact.secondaryemail" type="text" ng-readonly="editMode">
+								</div>
+							</div>
+						</div>
+
+		<!-- Phone-->
+		<div class="form-group">
+							<label class="col-md-2 control-label">Phone #</label>
+							<div class="col-md-6 inputGroupContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+									<input required name="phone" placeholder="(845)555-1212" class="form-control editField" ng_model= "contact.phone" type="text" ng-readonly="editMode">
+								</div>
+							</div>
+						</div>
+
+		<!-- Secondary Phone-->
+		<div class="form-group">
+							<label class="col-md-2 control-label">Home Phone #</label>
+							<div class="col-md-6 inputGroupContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+									<input name="secphone" placeholder="optional" class="form-control editField" ng_model= "contact.secondaryphone" type="text" ng-readonly="editMode">
+								</div>
+							</div>
+						</div>
+
+		<!-- Membership Expiry-->
+		<div class="form-group">
+							<label class="col-md-2 control-label"> Membership Expiry</label>
+							<div class="col-md-6 inputGroupContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-date"></i></span>
+									<input required name="expiry" placeholder="dd/mm/yyyy" class="form-control editField" ng_model= "contact.memexpiry" type="string" ng-readonly="editMode">
+								</div>
+							</div>
+						</div>
+
+		<!-- Membership Since-->
+		<div class="form-group">
+							<label class="col-md-2 control-label"> Membership Since</label>
+							<div class="col-md-6 inputGroupContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-date"></i></span>
+									<input name="since" placeholder="optional" class="form-control editField" ng_model= "contact.memsince" type="string" ng-readonly="editMode">
+								</div>
+							</div>
+						</div>
+
+		<legend>Address </legend>
+
+		<!-- Address - Street-->
+		<div class="form-group">
+							<label class="col-md-2 control-label">Address</label>
+							<div class="col-md-6 inputGroupContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+									<input reqired name="address" placeholder="Address" class="form-control editField" ng-model="contact.address.street" type="text" ng-readonly="editMode">
+								</div>
+							</div>
+						</div>
+
+		<!-- Address - City -->
+		<div class="form-group">
+							<label class="col-md-2 control-label">City</label>
+							<div class="col-md-6 inputGroupContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+									<input requird name="city" placeholder="city" class="form-control editField"  ng-model="contact.address.city" type="text" ng-readonly="editMode">
+								</div>
+							</div>
+						</div>
+
+		<!-- Address - State -->
+		<div class="form-group">
+							<label class="col-md-2 control-label">State</label>
+							<div class="col-md-6 selectContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+									<select  required name="state" class="form-control selectpicker editField" ng-model="contact.address.state" ng-disabled="editMode">
+										<option value=" " >Please select your state</option>
+										<option>Alabama</option>
+										<option>Alaska</option>
+										<option >Arizona</option>
+										<option >Arkansas</option>
+										<option >California</option>
+										<option >Colorado</option>
+										<option >Connecticut</option>
+										<option >Delaware</option>
+										<option >District of Columbia</option>
+										<option> Florida</option>
+										<option >Georgia</option>
+										<option >Hawaii</option>
+										<option >daho</option>
+										<option >Illinois</option>
+										<option >Indiana</option>
+										<option >Iowa</option>
+										<option> Kansas</option>
+										<option >Kentucky</option>
+										<option >Louisiana</option>
+										<option>Maine</option>
+										<option >Maryland</option>
+										<option> Mass</option>
+										<option >Michigan</option>
+										<option >Minnesota</option>
+										<option>Mississippi</option>
+										<option>Missouri</option>
+										<option>Montana</option>
+										<option>Nebraska</option>
+										<option>Nevada</option>
+										<option>New Hampshire</option>
+										<option>New Jersey</option>
+										<option>New Mexico</option>
+										<option>New York</option>
+										<option>North Carolina</option>
+										<option>North Dakota</option>
+										<option>Ohio</option>
+										<option>Oklahoma</option>
+										<option>Oregon</option>
+										<option>Pennsylvania</option>
+										<option>Rhode Island</option>
+										<option>South Carolina</option>
+										<option>South Dakota</option>
+										<option>Tennessee</option>
+										<option>Texas</option>
+										<option> Uttah</option>
+										<option>Vermont</option>
+										<option>Virginia</option>
+										<option >Washington</option>
+										<option >West Virginia</option>
+										<option>Wisconsin</option>
+										<option >Wyoming</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+		<!-- Address - Zip-->
+		<div class="form-group">
+							<label class="col-md-2 control-label">Zip Code</label>
+							<div class="col-md-6 inputGroupContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+									<input required name="zip" placeholder="Zip Code" class="form-control editField"  ng-model="contact.address.zip" type="text" ng-readonly="editMode">
+								</div>
+							</div>
+						</div>
+
+		<!-- Address - Country-->
+		<div class="form-group">
+							<label class="col-md-2 control-label">Country</label>
+							<div class="col-md-6 inputGroupContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+									<input required name="country" placeholder="USA" class="form-control editField"  ng-model="contact.address.country" type="text" ng-readonly="editMode">
+								</div>
+							</div>
+						</div>
+
+		<legend>Family Members </legend>
+
+		<!-- Member 1 -->
+		<div class="form-group">
+							<label class="col-md-2 control-label" for="textinput1">Member 1</label>
+							<div class="col-md-2">
+								<input id="textinput1" name="member1" type="text" placeholder="Full Name" ng-model="contact.member1.name" class="form-control input-md editField" ng-readonly="editMode">
+							</div>
+
+
+							<div class="col-md-2">
+								<input id="ageinput1" name="age" type="number" placeholder="Age" ng-model="contact.member1.age" class="form-control input-md editField" ng-readonly="editMode">
+							</div>
+
+
+
+							<label class="col-md-2 control-label" for="radios-0">Gender</label>
+							<div class="col-md-2">
+								<label class="radio-inline" for="radios-0">
+									 <input type="radio" name="radios0" id="radios-0" value="1" ng-model="contact.member1.gender" checked="checked" ng-disabled="editMode">
+									Male
+								</label>
+								<label class="radio-inline" for="radios-1">
+									<input type="radio" name="radios0" id="radios-1" ng-model="contact.member1.gender" value="2" ng-disabled="editMode">
+									Female
+								</label>
+							</div>
+						</div>
+
+		<!-- Member 2 -->
+		<div class="form-group">
+						<label class="col-md-2 control-label" for="textinput2">Member 2</label>
+						<div class="col-md-2">
+							<input id="textinput2" name="member2" type="text" placeholder="Full Name" ng-model="contact.member2.name" class="form-control input-md editField" ng-readonly="editMode">
+						</div>
+
+
+						<div class="col-md-2">
+							<input id="ageinput2" name="age" type="number" placeholder="Age" ng-model="contact.member2.age" class="form-control input-md editField" ng-readonly="editMode">
+						</div>
+
+						<label class="col-md-2 control-label" for="radios-2">Gender</label>
+						<div class="col-md-2">
+							<label class="radio-inline" for="radios-2">
+								<input type="radio" name="radios1" id="radios-2" value="1" ng-model="contact.member2.gender" checked="checked" ng-disabled="editMode">
+								Male
+							</label>
+							<label class="radio-inline" for="radios-3">
+								<input type="radio" name="radios1" id="radios-3" ng-model="contact.member2.gender" value="2" ng-disabled="editMode">
+								Female
+							</label>
+						</div>
+			</div>
+
+		<!-- Member 3 -->
+		<div class="form-group">
+						<label class="col-md-2 control-label" for="textinput3">Member 3</label>
+						<div class="col-md-2">
+							<input id="textinput3" name="member3" type="text" placeholder="Full Name" ng-model="contact.member3.name" class="form-control input-md editField" ng-readonly="editMode">
+						</div>
+
+
+						<div class="col-md-2">
+							<input id="ageinput3" name="age" type="number" placeholder="Age" ng-model="contact.member3.age" class="form-control input-md editField" ng-readonly="editMode">
+						</div>
+
+
+
+						<label class="col-md-2 control-label" for="radios-4">Gender</label>
+						<div class="col-md-2">
+							<label class="radio-inline" for="radios-4">
+								<input type="radio" name="radios2" id="radios-4" value="1" ng-model="contact.member3.gender" checked="checked" ng-disabled="editMode">
+								Male
+							</label>
+							<label class="radio-inline" for="radios-5">
+								<input type="radio" name="radios2" id="radios-5" ng-model="contact.member3.gender" value="2" ng-disabled="editMode">
+								Female
+							</label>
+						</div>
+
+			</div>
+
+
+		<p>
+			<button ng-disabled="!memberform.$valid" style="margin-top:20px" class="btn btn-default" ng-click="saveContact(contact)">Save</button>
+			<button style="margin-top:20px" class="btn btn-default" ng-click="back()">Back</button>
+		</p>
+
+		</ng-form>
+
+</div><!-- /.container -->

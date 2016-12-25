@@ -14,18 +14,28 @@ app.use(bodyParser.json());
 var db;
 
 // Connect to the database before starting the application server. 
-mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
+mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost/', function (err, database) {
   if (err) {
     console.log(err);
     process.exit(1);
+  } else
+  {
+    db = database;
+    populateDB();
+    db.collection(CONTACTS_COLLECTION, {strict:true}, function(err, collection) {
+            if (err) {
+                console.log("The CONTACTS collection doesn't exist. Creating it with sample data...");
+                populateDB();
+            }
+        });
   }
 
   // Save database object from the callback for reuse.
-  db = database;
+  //db = database;
   console.log("Database connection ready");
 
   // Initialize the app.
-  var server = app.listen(process.env.PORT || 8080, function () {
+  var server = app.listen(process.env.PORT || 3000, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
   });
@@ -58,8 +68,9 @@ app.post("/contacts", function(req, res) {
   var newContact = req.body;
   newContact.createDate = new Date();
 
-  if (!(req.body.firstName || req.body.lastName)) {
+  if (!(req.body.firstname || req.body.lastname)) {
     handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
+      return;
   }
 
   db.collection(CONTACTS_COLLECTION).insertOne(newContact, function(err, doc) {
@@ -109,3 +120,51 @@ app.delete("/contacts/:id", function(req, res) {
     }
   });
 });
+
+
+var populateDB = function() {
+
+    var user = {
+            first_name: "nagendra",
+            last_name: "sanjeeva",
+            primary_email: "dummy@gmail.com",
+            primary_phone: "13145545454",
+            member_since: "1-1-2006",
+            member_expiry: "12-30-2016",
+
+            address: {
+                      street: "271 Rockville Place",
+                      city: "saint louis",
+                      zip: "63141",
+                      state: "mo",
+                      country: "usa"
+                  },
+
+            members: [
+                {
+                    name: "kid1",
+                    sex: "male",
+                    age: 13
+                },
+                {
+                    name: "kid1",
+                    sex: "male",
+                    age: 13
+                }
+            ],
+
+            moreinfo: {
+                secondary_email: "dummy1@gmail.com",
+                secondary_phone: "13144678888"
+              }
+            
+        };
+
+
+
+db.collection(CONTACTS_COLLECTION).insertOne(user, function(err, result) {
+    if (err) {
+        console.log("Failed to create new contact.");
+    } 
+  });
+};

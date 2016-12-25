@@ -1,0 +1,143 @@
+<div class="jumbotron">
+<div class="container-fluid">
+<div class="row" ng-hide="contact._id">
+  <div class="col-md-6">
+      <h2>Create new contact</h2>
+  </div>
+</div>
+
+  <div class="col-md-6">
+    <p>
+      <label>First Name (required)</label> 
+      <input id="firstname" class="form-control" type="text" ng-model="contact.firstname" required>
+    </p>
+    <p>
+      <label>Last Name (required)</label> 
+      <input id="lastname" class="form-control" type="text" ng-model="contact.lastname" required>
+    </p>
+    <p>
+      <label>Email (required)</label> 
+      <input id="email" class="form-control" type="text" ng-model="contact.email" required>
+    </p>
+
+    <p>
+      <label>Mobile Phone (required)</label>
+      <input id="phone" class="form-control" type="text" ng-model="contact.phone" placeholder="1-111-111-1111"required>
+    </p>
+
+    <p>
+      <label>Secondary Email</label>
+      <input id="secemail" class="form-control" type="text" ng-model="contact.secondaryemail" optional>
+    </p>
+
+    <p>
+      <label>Home Phone  </label>
+      <input id="secphone" class="form-control" type="text" ng-model="contact.secondaryphone" optional>
+    </p>
+
+    <p>
+      <label>Membership Expiry </label>
+    <input type="expirydate" id="exampleInput" name="input" ng-model="contact.memexpiry"
+           placeholder="yyyy-MM-dd" min="2016-01-01" max="2026-12-31" required />
+    </p>
+
+    <p>
+      <label>Member Since </label>
+      <input type="membersince" id="exampleInput" name="input" ng-model="contact.memsince"
+             placeholder="yyyy-MM-dd" min="1980-01-01" max="2026-12-31" optional />
+    </p>
+
+    <p>
+      <label>Address </label>
+    </p>
+
+    <p>
+      <label>Street </label>
+      <input id="Street" class="form-control" type="text" ng-model="contact.address.street">
+    </p>
+
+
+    <p>
+      <label> City </label>
+      <input id="City" class="form-control" type="text" ng-model="contact.address.city">
+    </p>
+
+
+    <p>
+      <label> State </label>
+      <input id="State" class="form-control" type="text" ng-model="contact.address.state">
+    </p>
+
+
+    <p>
+      <label> Country </label>
+      <input id="Country" class="form-control" type="text" ng-model="contact.address.country" placeholder="USA">
+    </p>
+
+    <p>
+      <label>Other Members </label>
+    </p>
+
+    <table>
+      <thead>
+      <thd>
+        Name
+      </thd>
+
+      <thd>
+        Male/Female
+      </thd>
+
+      <thd>
+        Age
+      </thd>
+      </thead>
+      <tr>
+        <td>
+          <input id="member1n" class="form-control" type="text" ng-model="contact.others.member1.name" placeholder="USA">
+        </td>
+        <td>
+        <select id="sex1" class="form-control" type="text" ng-model="contact.others.member1.sex" placeholder="Male">
+          <option value="male">Male
+          <option value="female">Female
+        </select>
+        <td>
+          <input id="age1" class="form-control" type="text" ng-model="contact.others.member1.age">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input id="member2n" class="form-control" type="text" ng-model="contact.others.member2.name">
+        </td>
+        <td>
+          <select id="sex2" class="form-control" type="text" ng-model="contact.others.member2.sex" placeholder="Male">
+            <option value="male">Male
+            <option value="female">Female
+          </select>
+        </td>
+        <td>
+          <input id="age2" class="form-control" type="text" ng-model="contact.others.member2.age">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input id="member3n" class="form-control" type="text" ng-model="contact.others.member3.name">
+        </td>
+        <td>
+        <select id="sex3" class="form-control" type="text" ng-model="contact.others.member3.sex" placeholder="Male">
+          <option value="male">Male
+          <option value="female">Female
+        </select>
+        <td>
+          <input id="age3" class="form-control" type="text" ng-model="contact.others.member3.age" placeholder="USA">
+        </td>
+      </tr>
+
+    </table>
+    <p>
+      <button style="margin-top:20px" class="btn btn-default" ng-click="saveContact(contact)">Save</button>
+      <button style="margin-top:20px" class="btn btn-default" ng-click="back()">Back</button>
+    </p>
+  </div>
+</div>
+</div>

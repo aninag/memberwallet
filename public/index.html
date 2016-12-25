@@ -23,13 +23,52 @@
     </style>
 
     <script src="/js/app.js"></script>
+    <!--
+      <script src="/directives/passwordStrength.js"></script>
+      <script src="/directives/passwordMatch.js"></script>
+      <script src="/controllers/home.js"></script>
+      <script src="/controllers/login.js"></script>
+      <script src="/controllers/signup.js"></script>
+      <script src="/controllers/logout.js"></script>
+      <script src="/controllers/profile.js"></script>
+      <script src="/controllers/navbar.js"></script>
+      <script src="/services/account.js"></script>
+
+      <script src="/vendor/angular.js"></script>
+      <script src="/vendor/angular-animate.js"></script>
+      <script src="/vendor/angular-messages.js"></script>
+      <script src="/vendor/angular-resource.js"></script>
+      <script src="/vendor/angular-sanitize.js"></script>
+      <script src="/vendor/angular-ui-router.js"></script>
+      <script src="/vendor/angular-toastr.tpls.js"></script>
+      <script src="/vendor/satellizer.js"></script>
+      -->
   </head>
 
   <body>
+
+  <!--
+  <div ng-controller="NavbarCtrl" class="navbar navbar-default navbar-static-top">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Satellizer</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="/#/">Home</a></li>
+      <li ng-if="isAuthenticated()"><a href="/#/profile">Profile</a></li>
+    </ul>
+    <ul ng-if="!isAuthenticated()" class="nav navbar-nav pull-right">
+      <li><a href="/#/login">Login</a></li>
+      <li><a href="/#/signup">Sign up</a></li>
+    </ul>
+    <ul ng-if="isAuthenticated()" class="nav navbar-nav pull-right">
+      <li><a href="/#/logout">Logout</a></li>
+    </ul>
+  </div>
+ -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <div class="navbar-brand" href="#/">mLab Contact List</div>
+          <div class="navbar-brand" href="#/">Member Wallet</div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -38,8 +77,16 @@
         </div>
       </div>
     </nav>
+
+
+
     <!-- Dynamically render templates -->
-    <div class="container" ng-view>
+
+  <div class="container" ng-view>
     </div>
+
+
+
   </body>
+
 </html>

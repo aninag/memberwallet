@@ -1,4 +1,5 @@
-angular.module("contactsApp", ['ngRoute'])
+
+var myapp = angular.module("contactsApp", ['ngRoute'])
     .config(function($routeProvider) {
         $routeProvider
             .when("/", {
@@ -77,6 +78,10 @@ angular.module("contactsApp", ['ngRoute'])
         $scope.back = function() {
             $location.path("#/");
         }
+        $scope.init = function () {
+            $scope.editMode = false;
+            //alert("Hi "+$scope.editMode);
+        }
 
         $scope.saveContact = function(contact) {
             Contacts.createContact(contact).then(function(doc) {
@@ -86,31 +91,182 @@ angular.module("contactsApp", ['ngRoute'])
                 alert(response);
             });
         }
+
     })
     .controller("EditContactController", function($scope, $routeParams, Contacts) {
         Contacts.getContact($routeParams.contactId).then(function(doc) {
             $scope.contact = doc.data;
+            //$scope.contact.memexpiry = $filter('date')(new Date($scope.contact.memexpiry), "dd/MM/yyyy");
+            $scope.contactFormUrl = "contact-form.html";
         }, function(response) {
             alert(response);
         });
 
-        $scope.toggleEdit = function() {
+        $scope.$on('$viewContentLoaded', function() {
             $scope.editMode = true;
-            $scope.contactFormUrl = "contact-form.html";
+            //alert("hi");
+        })
+
+        $scope.toggleEdit = function() {
+            //$scope.editMode = !$scope.editMode;
+                    if ($('.editField').is('[readonly]')) { //checks if it is already on readonly mode
+                        $('.editField').prop('readonly', false);//turns the readonly off
+                        $('.editBtn').html('Edit On'); //Changes the text of the button
+                        $('.editBtn').css("background", "green"); //changes the background of the button
+                        $('.editBtn').css("border", "green"); //changes the border of the button
+                        $("input[type=radio]").attr('disabled', false);
+                        $("select[name=state]").attr('disabled', false);
+                    } else { //else we do other things
+                        $('.editField').prop('readonly', true);
+                        $('.editBtn').html('Edit Off');
+                        $('.editBtn').css("background", "red");
+                        $("input[type=radio]").attr('disabled', true);
+                        $("select[name=state]").attr('disabled', true);
+                    }
+
+           // $scope.contactFormUrl = "contact-form.html";
         }
 
         $scope.back = function() {
-            $scope.editMode = false;
+            //$scope.editMode = false;
             $scope.contactFormUrl = "";
         }
 
         $scope.saveContact = function(contact) {
             Contacts.editContact(contact);
-            $scope.editMode = false;
+            //$scope.editMode = false;
             $scope.contactFormUrl = "";
         }
 
         $scope.deleteContact = function(contactId) {
             Contacts.deleteContact(contactId);
         }
-    });
+
+    })
+    .service('googleService', ['$http', '$rootScope', '$q', function ($http, $rootScope, $q) {
+    var clientId = '{CLIENT_ID}',
+        apiKey = '{API_KEY}',
+        scopes = '{SCOPES}',
+        domain = '{OPTIONAL DOMAIN}',
+        deferred = $q.defer();
+
+    this.login = function () {
+        gapi.auth.authorize({
+            client_id: clientId,
+            scope: scopes,
+            immediate: false,
+            hd: domain
+        }, this.handleAuthResult);
+
+        return deferred.promise;
+    }
+
+    this.handleClientLoad = function () {
+        gapi.client.setApiKey(apiKey);
+        gapi.auth.init(function () { });
+        window.setTimeout(checkAuth, 1);
+    };
+
+    this.checkAuth = function() {
+        gapi.auth.authorize({
+            client_id: clientId,
+            scope: scopes,
+            immediate: true,
+            hd: domain
+        }, this.handleAuthResult);
+    };
+
+    this.handleAuthResult = function(authResult) {
+        if (authResult && !authResult.error) {
+            var data = {};
+            gapi.client.load('oauth2', 'v2', function () {
+                var request = gapi.client.oauth2.userinfo.get();
+                request.execute(function (resp) {
+                    data.email = resp.email;
+                });
+            });
+            deferred.resolve(data);
+        } else {
+            deferred.reject('error');
+        }
+    };
+
+    this.handleAuthClick = function(event) {
+        gapi.auth.authorize({
+            client_id: clientId,
+            scope: scopes,
+            immediate: false,
+            hd: domain
+        }, this.handleAuthResult);
+        return false;
+    };
+
+}]);
+
+
+
+myapp.filter('dateFormat', function($filter)
+{
+    return function(input)
+    {
+        if(input == null){ return ""; }
+
+        var _date = $filter('date')(new Date(input), 'MMM dd yyyy');
+
+        return _date.toUpperCase();
+
+    };
+});
+myapp.filter('dateFormat1', function($filter)
+{
+    return function(input)
+    {
+        if(input == null){ return ""; }
+
+        var _date = $filter('date')(new Date(input), 'MM/dd/yyyy');
+
+        //alert(_date);
+
+        return _date.toUpperCase();
+
+    };
+});
+
+myapp.filter('time', function($filter)
+{
+    return function(input)
+    {
+        if(input == null){ return ""; }
+
+        var _date = $filter('date')(new Date(input), 'HH:mm:ss');
+
+        return _date.toUpperCase();
+
+    };
+});
+myapp.filter('datetime', function($filter)
+{
+    return function(input)
+    {
+        if(input == null){ return ""; }
+
+        var _date = $filter('date')(new Date(input),
+            'MMM dd yyyy - HH:mm:ss');
+
+        return _date.toUpperCase();
+
+    };
+});
+myapp.filter('datetime1', function($filter)
+{
+    return function(input)
+    {
+        if(input == null){ return ""; }
+
+        var _date = $filter('date')(new Date(input),
+            'MM dd yyyy - HH:mm:ss');
+
+        return _date.toUpperCase();
+
+    };
+});
